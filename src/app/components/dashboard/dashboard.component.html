@@ -2,10 +2,16 @@
   <app-top-bar class="row header" (sidenavEmitter)="toggleSidenav()"></app-top-bar>
   <mat-sidenav-container class="row content">
     <mat-sidenav mode="side" [opened]="sidenavOpened">
-      <app-side-menu></app-side-menu>
+      <app-side-menu (viewEmitter)="selectView($event)"></app-side-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-      <app-match-detail></app-match-detail>
+      @if (selectedView == "Home") {
+        <app-home-page></app-home-page>
+      } @else if (selectedView == "Players") {
+        <app-players-page></app-players-page>
+      } @else if (selectedView == "Results") {
+        <app-results-page></app-results-page>
+      }
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

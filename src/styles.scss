@@ -16,8 +16,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
 .flex-col {
     flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
 }
 
 .align-center {
@@ -52,6 +60,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-weight: bold;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .grey-bg {
     background-color: grey;
 }
@@ -71,6 +83,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
             padding-right: $i*2px;
         }
 
+        .pad-y-#{$i} {
+            padding-top: $i*2px;
+            padding-bottom: $i*2px;
+        }
+
         .pad-bot-#{$i} {
             padding-bottom: $i*2px;
         }
@@ -85,6 +102,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
         .margin-top-#{$i} {
             margin-top: $i*2px;
+        }
+
+        .margin-x-#{$i} {
+            margin-left: $i*2px;
+            margin-right: $i*2px;
         }
 
         .margin-y-#{$i} {

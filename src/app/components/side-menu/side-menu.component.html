@@ -1,18 +1,18 @@
 <div class="bg h-full flex justify-spread flex-col">
     <div class="button-div">
-        <button class="menu-button" mat-flat-button>
+        <button class="menu-button" mat-flat-button (click)='viewSelector("Home")'>
             <mat-icon>home</mat-icon>
             <span class="font-l">Home</span>
             <span></span>
         </button>
         <mat-divider></mat-divider>
-        <button class="menu-button" mat-flat-button>
+        <button class="menu-button" mat-flat-button (click)='viewSelector("Players")'>
             <mat-icon>person</mat-icon>
             <span class="font-l">Players</span>
             <span></span>
         </button>
         <mat-divider></mat-divider>
-        <button class="menu-button" mat-flat-button>
+        <button class="menu-button" mat-flat-button (click)='viewSelector("Results")'>
             <mat-icon>stadium</mat-icon>
             <span class="font-l">Results</span>
             <span></span>

@@ -1,0 +1,22 @@
+.save-button {
+    background-color: blue;
+    color: white;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+}
+
+.detail-card {
+    width: calc(100% - 20px)
+}
+
+.pic-size {
+    width: 212px;
+    height: 212px;
+}
+
+.input-field {
+    min-width: calc(50% - 10px);
+}
