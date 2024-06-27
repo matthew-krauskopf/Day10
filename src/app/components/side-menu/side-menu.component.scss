@@ -1,0 +1,29 @@
+.menu-button {
+    --mdc-filled-button-container-shape: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 180px;
+    height: 50px;
+}
+
+.mdc-button__label {
+    width: 100%
+}
+
+.button-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.img-size {
+    height: 180px;
+    width: 180px;
+}
+
+.mdc-button__label {
+    width: 100% !important
+}
+
+.bg {
+    background-color: rgb(109, 109, 109);
+}

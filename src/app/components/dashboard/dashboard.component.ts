@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { MatchDetailComponent } from '../match-detail/match-detail.component';
-import { MatchListComponent } from '../match-list/match-list.component';
 import { TopBarComponent } from '../top-bar/top-bar.component';
+import { SideMenuComponent } from '../side-menu/side-menu.component';
+import { MatchDetailComponent } from '../match-detail/match-detail.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatSidenavModule, MatchDetailComponent, MatchListComponent, TopBarComponent],
+  imports: [MatSidenavModule, TopBarComponent, SideMenuComponent, MatchDetailComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
