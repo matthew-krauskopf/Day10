@@ -27,3 +27,62 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .font-l {
     font-size: large;
 }
+
+.font-xl {
+    font-size: x-large;
+}
+
+.font-xxl {
+    font-size: xx-large;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.grey-bg {
+    background-color: grey;
+}
+
+@mixin generate-spacing ($upper-limit) {
+    @for $i from 1 to $upper-limit {
+        .pad-left-#{$i} {
+            padding-left: $i*2px;
+        }
+
+        .pad-right-#{$i} {
+            padding-right: $i*2px;
+        }
+
+        .pad-bot-#{$i} {
+            padding-bottom: $i*2px;
+        }
+
+        .pad-top-#{$i} {
+            padding-top: $i*2px;
+        }
+
+        .margin-bot-#{$i} {
+            margin-bottom: $i*2px;
+        }
+
+        .margin-top-#{$i} {
+            margin-top: $i*2px;
+        }
+
+        .margin-y-#{$i} {
+            margin-bottom: $i*2px;
+            margin-top: $i*2px;
+        }
+
+        .margin-left-#{$i} {
+            margin-left: $i*2px;
+        }
+
+        .margin-right-#{$i} {
+            margin-right: $i*2px;
+        }
+    }
+}
+
+@include generate-spacing(21);
