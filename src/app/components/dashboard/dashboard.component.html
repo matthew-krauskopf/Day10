@@ -1,1 +1,9 @@
-<p>dashboard works!</p>
+<app-top-bar (sidenavEmitter)="toggleSidenav()"></app-top-bar>
+<mat-sidenav-container>
+    <mat-sidenav mode="side" [opened]="sidenavOpened">
+        <app-match-list></app-match-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-match-detail></app-match-detail>
+    </mat-sidenav-content>
+</mat-sidenav-container>
