@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PlayerDetailComponent } from '../player-detail/player-detail.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
-import { ApiService } from '../../services/db.service';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-players-page',
@@ -30,23 +30,15 @@ export class PlayersPageComponent {
   playersPage: Player[] = [];
   players: Player[] = [];
 
-  constructor(private api: ApiService) {
-    this.api.getPlayers().subscribe((response) => {
-      response.forEach((p) => {
-        if (!p.picture) p.picture = 'assets/no-image.jpg';
-      });
+  constructor(private playerService: PlayerService) {
+    playerService.getPlayers().subscribe((response) => {
       this.players = response;
       this.playersPage = this.players.slice(0, this.pageSize);
     });
   }
 
   addPlayer() {
-    this.selectedPlayer = {
-      id: -1,
-      wins: 0,
-      losses: 0,
-      picture: 'assets/no-image.jpg',
-    };
+    this.selectedPlayer = this.playerService.getNewPlayer();
   }
 
   selectPlayer(player: Player) {
@@ -58,28 +50,17 @@ export class PlayersPageComponent {
   }
 
   saveChanges($event: Player) {
-    if ($event.id == -1) {
-      $event.id = Math.max(...this.players.map((p) => p.id)) + 1;
-      this.players.push($event);
+    if (this.playerService.saveChanges(this.players, $event) === 1) {
+      this.pageIndex = Math.ceil(this.players.length / this.pageSize) - 1;
       this.renderSlice();
-    } else {
-      const toUpdate = this.players.filter((p) => p.id == $event.id)[0];
-      if (toUpdate) {
-        toUpdate.name = $event.name;
-        toUpdate.wins = $event.wins;
-        toUpdate.losses = $event.losses;
-        toUpdate.city = $event.city;
-        toUpdate.state = $event.state;
-        toUpdate.role = $event.role;
-        toUpdate.address = $event.address;
-        toUpdate.picture = $event.picture;
-      }
     }
   }
 
   deletePlayer($event: Player) {
-    this.players = this.players.filter((t) => t.id != $event.id);
-    if (this.pageSize * this.pageIndex >= this.players.length) this.pageIndex--;
+    this.players = this.playerService.deletePlayer(this.players, $event);
+    if (this.pageSize * this.pageIndex >= this.players.length) {
+      this.pageIndex--;
+    }
     this.renderSlice();
   }
 

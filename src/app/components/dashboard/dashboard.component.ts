@@ -24,7 +24,7 @@ import { ResultsPageComponent } from '../results-page/results-page.component';
 })
 export class DashboardComponent {
   sidenavOpened: boolean = true;
-  selectedView: string = 'Players'; // Default to home
+  selectedView: string = 'Home'; // Default to home
 
   toggleSidenav() {
     this.sidenavOpened = !this.sidenavOpened;
