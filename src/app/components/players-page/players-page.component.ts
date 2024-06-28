@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { PlayerDetailComponent } from '../player-detail/player-detail.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-players-page',
@@ -15,7 +16,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     PlayerDetailComponent,
     MatPaginatorModule,
-    NgIf
+    NgIf,
+    MatIconModule
   ],
   templateUrl: './players-page.component.html',
   styleUrl: './players-page.component.scss',
@@ -117,6 +119,14 @@ export class PlayersPageComponent {
   pageSize = 5;
   playersPage = this.players.slice(0, this.pageSize);
 
+  addPlayer() {
+    this.selectedPlayer = {
+      id: -1,
+      wins: 0,
+      losses: 0,
+      picture: '../../../assets/no-image.jpg',
+    }
+  }
 
   selectPlayer(player: Player) {
     this.selectedPlayer = structuredClone(player);
@@ -127,16 +137,22 @@ export class PlayersPageComponent {
   }
 
   saveChanges($event: Player) {
-    const toUpdate = this.players.filter((p) => p.id == $event.id)[0];
-    if (toUpdate) {
-      toUpdate.name = $event.name;
-      toUpdate.wins = $event.wins;
-      toUpdate.losses = $event.losses;
-      toUpdate.city = $event.city;
-      toUpdate.state = $event.state;
-      toUpdate.role = $event.role;
-      toUpdate.address = $event.address;
-      toUpdate.picture = $event.picture;
+    if ($event.id == -1) {
+      $event.id = Math.max(...this.players.map(p => p.id))+1
+      this.players.push($event);
+      this.renderSlice();
+    } else {
+      const toUpdate = this.players.filter((p) => p.id == $event.id)[0];
+      if (toUpdate) {
+        toUpdate.name = $event.name;
+        toUpdate.wins = $event.wins;
+        toUpdate.losses = $event.losses;
+        toUpdate.city = $event.city;
+        toUpdate.state = $event.state;
+        toUpdate.role = $event.role;
+        toUpdate.address = $event.address;
+        toUpdate.picture = $event.picture;
+      }
     }
   }
 

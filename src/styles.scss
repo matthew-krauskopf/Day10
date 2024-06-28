@@ -68,6 +68,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: grey;
 }
 
+.scroll {
+    overflow-y: auto;
+}
+
 @mixin generate-spacing ($upper-limit) {
     @for $i from 1 to $upper-limit {
         .pad-left-#{$i} {

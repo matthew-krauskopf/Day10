@@ -1,6 +1,6 @@
 export interface Player {
     id: number;
-    name: string;
+    name?: string;
     wins: number;
     losses: number;
     city?: string;
