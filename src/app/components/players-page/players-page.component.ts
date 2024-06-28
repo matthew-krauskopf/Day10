@@ -18,23 +18,22 @@ import { ApiService } from '../../services/db.service';
     PlayerDetailComponent,
     MatPaginatorModule,
     NgIf,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './players-page.component.html',
   styleUrl: './players-page.component.scss',
 })
 export class PlayersPageComponent {
-
   selectedPlayer?: Player;
-  pageIndex : number = 0;
+  pageIndex: number = 0;
   pageSize = 5;
-  playersPage : Player[] = [];
-  players : Player[] = [];
+  playersPage: Player[] = [];
+  players: Player[] = [];
 
-  constructor(private api : ApiService) {
-    this.api.getPlayers().subscribe(response => {
-      response.forEach(p => {
-        if (!p.picture) p.picture = "assets/no-image.jpg";
+  constructor(private api: ApiService) {
+    this.api.getPlayers().subscribe((response) => {
+      response.forEach((p) => {
+        if (!p.picture) p.picture = 'assets/no-image.jpg';
       });
       this.players = response;
       this.playersPage = this.players.slice(0, this.pageSize);
@@ -47,7 +46,7 @@ export class PlayersPageComponent {
       wins: 0,
       losses: 0,
       picture: 'assets/no-image.jpg',
-    }
+    };
   }
 
   selectPlayer(player: Player) {
@@ -60,7 +59,7 @@ export class PlayersPageComponent {
 
   saveChanges($event: Player) {
     if ($event.id == -1) {
-      $event.id = Math.max(...this.players.map(p => p.id))+1
+      $event.id = Math.max(...this.players.map((p) => p.id)) + 1;
       this.players.push($event);
       this.renderSlice();
     } else {
@@ -84,7 +83,7 @@ export class PlayersPageComponent {
     this.renderSlice();
   }
 
-  onPageChange($event : any) {
+  onPageChange($event: any) {
     this.cancelSelection();
     this.pageIndex = $event.pageIndex;
     this.renderSlice();

@@ -10,17 +10,23 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-player-detail',
   standalone: true,
-  imports: [NgIf, MatCardModule, MatButtonModule, MatFormFieldModule, FormsModule, MatInputModule],
+  imports: [
+    NgIf,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+  ],
   templateUrl: './player-detail.component.html',
-  styleUrl: './player-detail.component.scss'
+  styleUrl: './player-detail.component.scss',
 })
 export class PlayerDetailComponent {
+  @Input() player?: Player;
 
-  @Input() player ? : Player;
-
-  @Output() cancelEmitter : EventEmitter<any> = new EventEmitter();
-  @Output() saveEmitter : EventEmitter<Player> = new EventEmitter();
-  @Output() deleteEmitter : EventEmitter<Player> = new EventEmitter();
+  @Output() cancelEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() saveEmitter: EventEmitter<Player> = new EventEmitter();
+  @Output() deleteEmitter: EventEmitter<Player> = new EventEmitter();
 
   cancel() {
     this.cancelEmitter.emit();

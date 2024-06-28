@@ -20,9 +20,7 @@ export class LoginComponent {
 
   validationPattern = '\\w{4,}';
 
-  constructor(private snackbar : MatSnackBar, private router : Router, private authService : AuthService) {
-
-  }
+  constructor(private snackbar : MatSnackBar, private router : Router, private authService : AuthService) {}
 
   loginForm = new FormGroup ({
     username: new FormControl('', [Validators.pattern(this.validationPattern)]),

@@ -17,7 +17,7 @@ import { ResultsPageComponent } from '../results-page/results-page.component';
     MatchDetailComponent,
     HomePageComponent,
     PlayersPageComponent,
-    ResultsPageComponent
+    ResultsPageComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

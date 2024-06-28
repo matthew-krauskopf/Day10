@@ -11,12 +11,11 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './side-menu.component.scss',
 })
 export class SideMenuComponent {
-  icon = '../../assets/tournament-bracket.svg';
+  icon = 'assets/tournament-bracket.svg';
 
-  @Output() viewEmitter : EventEmitter<string> = new EventEmitter<string>();
+  @Output() viewEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   viewSelector(id: string) {
-    console.log(id);
     this.viewEmitter.emit(id);
   }
 }

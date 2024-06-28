@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,12 +8,12 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, RouterLink],
   templateUrl: './top-bar.component.html',
-  styleUrl: './top-bar.component.scss'
+  styleUrl: './top-bar.component.scss',
 })
 export class TopBarComponent {
-  title = "Bracket Viewer"
+  title = 'Bracket Viewer';
 
-  @Output() sidenavEmitter : EventEmitter<any> = new EventEmitter();
+  @Output() sidenavEmitter: EventEmitter<any> = new EventEmitter();
 
   toggleSidenav() {
     this.sidenavEmitter.emit();
