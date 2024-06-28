@@ -1,16 +1,16 @@
 <div class="h-full bg flex flex-row">
     <div class="player-card-view flex flex-col justify-spread">
-        <div class="flex flex-col">
-            <div class="margin-x-5 margin-y-5 flex justify-center">
-                <mat-card class="w-full">
-                    <button mat-flat-button class="w-full add-button" (click)="addPlayer()">
-                        <div class="flex align-center">
-                            <span class="margin-right-5">Add Player</span>
-                            <mat-icon>add_circle</mat-icon>
-                        </div>
-                    </button>
-                </mat-card>
-            </div>
+        <div class="margin-x-5 margin-y-5 flex justify-center">
+            <mat-card class="w-full">
+                <button mat-flat-button class="w-full add-button" (click)="addPlayer()">
+                    <div class="flex align-center">
+                        <span class="margin-right-5">Add Player</span>
+                        <mat-icon>add_circle</mat-icon>
+                    </div>
+                </button>
+            </mat-card>
+        </div>
+        <div class="scroll h-full">
             <mat-card class="margin-x-5 margin-y-5 flex" 
                     *ngFor="let player of playersPage">
                 <mat-card-content style="flex:4">
