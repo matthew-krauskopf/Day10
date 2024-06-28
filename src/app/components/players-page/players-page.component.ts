@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PlayerDetailComponent } from '../player-detail/player-detail.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { ApiService } from '../../services/db.service';
 
 @Component({
   selector: 'app-players-page',
@@ -23,108 +24,29 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './players-page.component.scss',
 })
 export class PlayersPageComponent {
-  players: Player[] = [
-    {
-      id: 1,
-      name: 'John',
-      wins: 0,
-      losses: 0,
-      city: 'Orlando',
-      state: 'Florida',
-      role: 'Closer',
-      address: '123 Park Way',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 2,
-      name: 'Sue',
-      wins: 0,
-      losses: 0,
-      city: 'Buffalo',
-      state: 'New York',
-      role: 'Striker',
-      address: '456 Park Way',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 3,
-      name: 'Jack',
-      wins: 0,
-      losses: 0,
-      city: 'Denver',
-      state: 'Colorado',
-      role: 'Point Guard',
-      address: '789 Park Way',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 4,
-      name: 'Jill',
-      wins: 0,
-      losses: 0,
-      city: 'Miami',
-      state: 'Florida',
-      role: 'Wide Tackle',
-      address: '135 Hill Rd',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 5,
-      name: 'Matt',
-      wins: 0,
-      losses: 0,
-      city: 'Dallas',
-      state: 'Texas',
-      role: 'Blocker',
-      address: '246 Hill Rd',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 6,
-      name: 'Mary',
-      wins: 0,
-      losses: 0,
-      city: 'Seattle',
-      state: 'Washington',
-      role: 'Pitcher',
-      address: '357 Hill Rd',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 7,
-      name: 'Peter',
-      wins: 0,
-      losses: 0,
-      city: 'Columbus',
-      state: 'Ohio',
-      role: 'Kicker',
-      address: '468 Hill Rd',
-      picture: '../../../assets/no-image.jpg',
-    },
-    {
-      id: 8,
-      name: 'Sarah',
-      wins: 0,
-      losses: 0,
-      city: 'Atlanta',
-      state: 'Georgia',
-      role: 'Water Girl',
-      address: '685 Curvy St',
-      picture: '../../../assets/no-image.jpg',
-    },
-  ];
 
   selectedPlayer?: Player;
   pageIndex : number = 0;
   pageSize = 5;
-  playersPage = this.players.slice(0, this.pageSize);
+  playersPage : Player[] = [];
+  players : Player[] = [];
+
+  constructor(private api : ApiService) {
+    this.api.getPlayers().subscribe(response => {
+      response.forEach(p => {
+        if (!p.picture) p.picture = "assets/no-image.jpg";
+      });
+      this.players = response;
+      this.playersPage = this.players.slice(0, this.pageSize);
+    });
+  }
 
   addPlayer() {
     this.selectedPlayer = {
       id: -1,
       wins: 0,
       losses: 0,
-      picture: '../../../assets/no-image.jpg',
+      picture: 'assets/no-image.jpg',
     }
   }
 
