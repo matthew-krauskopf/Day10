@@ -1,24 +1,37 @@
 <div class="h-full bg flex flex-row">
-    <div class="player-card-view flex flex-col">
-        <mat-card class="margin-x-5 margin-y-5 flex" *ngFor="let player of players">
-            <mat-card-content style="flex:4">
-                <div class="flex justify-spread">
-                    <div class="flex align-center">
-                        <img class="pic-size" src={{player.picture}} alt="Profile Pic">
-                        <span class="margin-left-5 italic">{{player.role}}</span>
-                        <span class="margin-left-5 bold">{{player.name}}</span>
+    <div class="player-card-view flex flex-col justify-spread">
+        <div class="flex flex-col">
+            <mat-card class="margin-x-5 margin-y-5 flex" 
+                    *ngFor="let player of playersPage">
+                <mat-card-content style="flex:4">
+                    <div class="flex justify-spread">
+                        <div class="flex align-center">
+                            <img class="pic-size" src={{player.picture}} alt="Profile Pic">
+                            <span class="margin-left-5 italic">{{player.role}}</span>
+                            <span class="margin-left-5 bold">{{player.name}}</span>
+                        </div>
+                        <div class="flex align-center">
+                            <span class="margin-right-3 green">{{player.wins}}</span>
+                            <span> - </span>
+                            <span class="margin-left-3 red">{{player.losses}}</span>
+                        </div>
                     </div>
-                    <div class="flex align-center">
-                        <span class="margin-right-3 green">{{player.wins}}</span>
-                        <span> - </span>
-                        <span class="margin-left-3 red">{{player.losses}}</span>
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-footer style="flex: 1">
-                <button class="w-full" mat-flat-button (click)="selectPlayer(player)">Edit Details</button>
-            </mat-card-footer>
-        </mat-card>
+                </mat-card-content>
+                <mat-card-footer style="flex: 1">
+                    <button class="w-full" mat-flat-button (click)="selectPlayer(player)">Edit Details</button>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card *ngIf="players.length > pageSize" class="margin-x-5 margin-y-5 flex">
+                <mat-paginator [length]=players.length 
+                    [pageSize]=pageSize 
+                    [hidePageSize]="true" 
+                    [pageIndex]="pageIndex"
+                    (page)="onPageChange($event)">
+                </mat-paginator>
+            </mat-card>
+        </div>
     </div>
     <app-player-detail class="w-full" [player]=selectedPlayer
         (cancelEmitter)="cancelSelection()"
