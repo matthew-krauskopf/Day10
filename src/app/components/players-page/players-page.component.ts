@@ -7,6 +7,12 @@ import { PlayerDetailComponent } from '../player-detail/player-detail.component'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { PlayerService } from '../../services/player.service';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-players-page',
@@ -19,16 +25,17 @@ import { PlayerService } from '../../services/player.service';
     MatPaginatorModule,
     NgIf,
     MatIconModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './players-page.component.html',
   styleUrl: './players-page.component.scss',
 })
 export class PlayersPageComponent {
-  selectedPlayer?: Player;
   pageIndex: number = 0;
   pageSize = 5;
   playersPage: Player[] = [];
   players: Player[] = [];
+  detailForm?: FormGroup;
 
   constructor(private playerService: PlayerService) {
     playerService.getPlayers().subscribe((response) => {
@@ -38,29 +45,34 @@ export class PlayersPageComponent {
   }
 
   addPlayer() {
-    this.selectedPlayer = this.playerService.getNewPlayer();
+    this.selectPlayer(this.playerService.getNewPlayer());
   }
 
   selectPlayer(player: Player) {
-    this.selectedPlayer = structuredClone(player);
+    this.detailForm = this.createForm(player);
   }
 
   cancelSelection() {
-    this.selectedPlayer = undefined;
+    this.detailForm = undefined;
   }
 
-  saveChanges($event: Player) {
-    if (this.playerService.saveChanges(this.players, $event) === 1) {
+  saveChanges() {
+    if (this.playerService.saveChanges(this.players, this.detailForm!) === 1) {
       this.pageIndex = Math.ceil(this.players.length / this.pageSize) - 1;
       this.renderSlice();
     }
+    this.cancelSelection();
   }
 
-  deletePlayer($event: Player) {
-    this.players = this.playerService.deletePlayer(this.players, $event);
+  deletePlayer() {
+    this.players = this.playerService.deletePlayer(
+      this.players,
+      this.detailForm!
+    );
     if (this.pageSize * this.pageIndex >= this.players.length) {
       this.pageIndex--;
     }
+    this.cancelSelection();
     this.renderSlice();
   }
 
@@ -73,5 +85,32 @@ export class PlayersPageComponent {
   renderSlice() {
     const start = this.pageIndex * this.pageSize;
     this.playersPage = this.players.slice(start, start + this.pageSize);
+  }
+
+  createForm(player: Player) {
+    return new FormGroup({
+      id: new FormControl(player.id),
+      name: new FormControl(player.name, [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      role: new FormControl(player.role, [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      city: new FormControl(player.city, [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      state: new FormControl(player.state, [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      address: new FormControl(player.address, [
+        Validators.required,
+        Validators.pattern('^[0-9]+( [A-Z][a-z]*)+(\\.){0,1}( )*$'),
+      ]),
+      picture: new FormControl(player.picture),
+    });
   }
 }

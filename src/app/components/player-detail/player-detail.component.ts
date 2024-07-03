@@ -4,7 +4,13 @@ import { NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -17,28 +23,29 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './player-detail.component.html',
   styleUrl: './player-detail.component.scss',
 })
 export class PlayerDetailComponent {
-  @Input() player?: Player;
+  @Input() detailForm?: FormGroup;
 
   @Output() cancelEmitter: EventEmitter<any> = new EventEmitter();
-  @Output() saveEmitter: EventEmitter<Player> = new EventEmitter();
-  @Output() deleteEmitter: EventEmitter<Player> = new EventEmitter();
+  @Output() saveEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() deleteEmitter: EventEmitter<any> = new EventEmitter();
 
   cancel() {
     this.cancelEmitter.emit();
-    this.player = undefined;
   }
 
   savePlayer() {
-    this.saveEmitter.emit(this.player);
+    this.detailForm!.valid
+      ? this.saveEmitter.emit()
+      : this.detailForm!.markAsTouched();
   }
 
   deletePlayer() {
-    this.deleteEmitter.emit(this.player);
-    this.player = undefined;
+    this.deleteEmitter.emit();
   }
 }

@@ -58,9 +58,9 @@
   </div>
   <app-player-detail
     class="w-full scroll"
-    [player]="selectedPlayer"
+    [detailForm]="detailForm"
     (cancelEmitter)="cancelSelection()"
-    (deleteEmitter)="deletePlayer($event)"
-    (saveEmitter)="saveChanges($event)"
+    (deleteEmitter)="deletePlayer()"
+    (saveEmitter)="saveChanges()"
   ></app-player-detail>
 </div>
