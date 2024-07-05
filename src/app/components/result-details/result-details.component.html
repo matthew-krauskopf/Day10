@@ -1,65 +1,73 @@
-<div class="margin-y-5 w-full flex justify-center">
-  <span class="font-white font-xxl">{{ bracket!.name }}</span>
-</div>
-<div class="flex flex-row">
-  @for (round of rounds; track round) {
-  <div class="round-width pad-left-10 pad-right-10 flex flex-col">
-    <div class="margin-y-10">
-      <mat-card>
-        <mat-card-content class="flex align-center">
-          <span class="flex align-center justify-center"
-            >Round {{ round[0].round }}</span
-          >
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div
-      class="flex flex-col justify-around scroll h-full"
-      [style.height]="rounds[0].length * 200"
-    >
-      @for (match of round; track match) {
-      <mat-card class="matches-gap">
-        <mat-card-content class="flex flex-row">
-          <div class="flex justify-spread align-center">
-            <div class="flex flex-row">
-              <span class="font-gray margin-right-5">{{
-                match.player1Id
-              }}</span>
-              <span>{{ getPlayerName(match.player1Id) }}</span>
-            </div>
-            <div>
-              <span
-                class="bold"
-                [style.color]="
-                  match.player1Score > match.player2Score ? 'green' : 'red'
-                "
-              >
-                {{ match.player1Score }}
-              </span>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="flex justify-spread align-center">
-            <div class="flex flex-row">
-              <span class="font-gray margin-right-5">{{
-                match.player2Id
-              }}</span>
-              <span>{{ getPlayerName(match.player2Id) }}</span>
-            </div>
-            <div>
-              <span
-                class="bold"
-                [style.color]="
-                  match.player2Score > match.player1Score ? 'green' : 'red'
-                "
-                >{{ match.player2Score }}</span
-              >
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      }
-    </div>
+<div class="pink-bg h-full scroll-x">
+  <div class="margin-y-5 w-full flex justify-center">
+    <span class="font-white font-xxl">{{ bracket ? bracket.name : "" }}</span>
   </div>
-  }
+  <div class="flex flex-row">
+    @for (round of rounds; track round) {
+    <div class="round-width pad-left-10 pad-right-10 flex flex-col">
+      <div class="margin-y-10">
+        <mat-card>
+          <mat-card-content class="flex align-center">
+            <span class="flex align-center justify-center"
+              >Round {{ round[0].round }}</span
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div
+        class="flex flex-col justify-around scroll h-full"
+        [style.height]="rounds[0].length * 200"
+      >
+        @for (match of round; track match) {
+        <mat-card class="matches-gap">
+          <mat-card-content class="flex flex-row">
+            <div class="flex justify-spread align-center">
+              <div class="flex flex-row">
+                <span class="w-4-chars font-gray margin-right-5">{{
+                  match.player1Id
+                }}</span>
+                <span
+                  [style.font-style]="match.player2Id == -1 ? 'italic' : 'none'"
+                  >{{ getPlayerName(match.player1Id) }}</span
+                >
+              </div>
+              <div>
+                <span
+                  class="bold"
+                  [style.color]="
+                    match.player1Score > match.player2Score ? 'green' : 'red'
+                  "
+                >
+                  {{ match.player1Score }}
+                </span>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="flex justify-spread align-center">
+              <div class="flex flex-row">
+                <span class="w-4-chars font-gray margin-right-5">{{
+                  match.player2Id
+                }}</span>
+                <span
+                  [style.font-style]="match.player2Id == -1 ? 'italic' : 'none'"
+                  >{{ getPlayerName(match.player2Id) }}</span
+                >
+              </div>
+              <div>
+                <span
+                  class="bold"
+                  [style.color]="
+                    match.player2Score > match.player1Score ? 'green' : 'red'
+                  "
+                  >{{ match.player2Score }}</span
+                >
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </div>
+    }
+  </div>
 </div>

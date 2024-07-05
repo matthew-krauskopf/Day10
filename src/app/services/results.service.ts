@@ -7,13 +7,11 @@ import { Match } from '../model/match';
 export class ResultsService {
   constructor() {}
 
-  formatResults(matches: Match[], bracketId: number): Match[][] {
+  formatResults(matches: Match[]): Match[][] {
     let results: Match[][] = [];
     let round: Match[] = [];
 
-    let filterdMatches = matches
-      .filter((m) => m.bracketId == bracketId)
-      .sort((a, b) => a.round - b.round);
+    let filterdMatches = matches.sort((a, b) => a.round - b.round);
     for (let m of filterdMatches) {
       if (round.length == 0 || round[0].round == m.round) {
         round.push(m);

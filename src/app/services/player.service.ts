@@ -3,6 +3,7 @@ import { DbService } from './db.service';
 import { Player } from '../model/player';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { Match } from '../model/match';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class PlayerService {
   constructor(private db: DbService) {}
 
   getPlayers(): Observable<Player[]> {
-    return this.db.fetchPlayers();
+    return this.db.fetchAllPlayers();
   }
 
   getNewPlayer(): Player {
@@ -59,5 +60,21 @@ export class PlayerService {
 
   deletePlayer(players: Player[], form: FormGroup) {
     return players.filter((t) => t.id != form.value.id);
+  }
+
+  calcScores(players: Player[], matches: Match[]) {
+    players.forEach((p) => {
+      if (p.wins + p.losses == 0) {
+        let p1Matches: Match[] = matches.filter((m) => m.player1Id == p.id);
+        p1Matches.forEach((pm) =>
+          pm.player1Score > pm.player2Score ? p.wins++ : p.losses++
+        );
+
+        let p2Matches: Match[] = matches.filter((m) => m.player2Id == p.id);
+        p2Matches.forEach((pm) =>
+          pm.player2Score > pm.player1Score ? p.wins++ : p.losses++
+        );
+      }
+    });
   }
 }

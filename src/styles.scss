@@ -84,6 +84,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow-x: auto;
 }
 
+.pink-bg {
+    background-color: rgb(255, 64, 129);
+}
+
 @mixin generate-spacing ($upper-limit) {
     @for $i from 1 to $upper-limit {
         .pad-left-#{$i} {

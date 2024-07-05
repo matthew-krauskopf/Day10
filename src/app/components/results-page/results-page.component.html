@@ -1,15 +1,4 @@
-<div class="h-full bg flex flex-col">
-  @if (!selectedBracket) {
-  <div class="margin-x-5 margin-y-5">
-    <mat-card>
-      <button mat-flat-button>
-        <div class="flex align-center">
-          <span class="margin-right-5">Add Bracket</span>
-          <mat-icon>add_circle</mat-icon>
-        </div>
-      </button>
-    </mat-card>
-  </div>
+<div class="h-full pink-bg flex flex-col">
   <div class="scroll">
     @for (b of brackets; track b) {
     <mat-card class="margin-x-5 margin-y-5">
@@ -20,7 +9,7 @@
           </div>
           <div class="margin-left-10 flex align-center justify-spread w-full">
             <div>
-              <button mat-button (click)="selectBracket(b)">
+              <button mat-button [routerLink]="['/results', b.id]">
                 {{ b.name }}
               </button>
             </div>
@@ -35,10 +24,4 @@
     </mat-card>
     }
   </div>
-  } @else {
-  <app-result-details
-    [bracket]="selectedBracket"
-    class="scroll-x"
-  ></app-result-details>
-  }
 </div>

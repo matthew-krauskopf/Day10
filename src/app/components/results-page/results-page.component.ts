@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ResultDetailsComponent } from '../result-details/result-details.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-results-page',
@@ -15,6 +16,7 @@ import { ResultDetailsComponent } from '../result-details/result-details.compone
     MatButtonModule,
     MatIconModule,
     ResultDetailsComponent,
+    RouterLink,
   ],
   templateUrl: './results-page.component.html',
   styleUrl: './results-page.component.scss',
@@ -32,7 +34,6 @@ export class ResultsPageComponent {
       .subscribe(
         (brackets) => (this.brackets = brackets.sort((a, b) => a.date - b.date))
       );
-    this.db.fetchMatches().subscribe((m) => (this.matches = m));
   }
 
   selectBracket(b: Bracket) {
