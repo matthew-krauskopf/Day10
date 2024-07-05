@@ -1,9 +1,11 @@
-import { Player } from './player';
+import { Player } from "./player";
 
 export interface Match {
   id: number;
-  player1: Player;
-  player2: Player;
-  date: Date;
-  result: string;
+  bracketId: number;
+  round: number;
+  player1Id: Player;
+  player2Id: Player;
+  player1Score: number;
+  player2Score: number;
 }

@@ -1,4 +1,4 @@
-enum SAVE_CODE {
+export enum SAVE_CODE {
   SAVE,
   UPDATE,
 }

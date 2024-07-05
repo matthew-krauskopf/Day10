@@ -1,1 +1,37 @@
-<p>results-page works!</p>
+<div class="h-full bg flex flex-col">
+  <div class="margin-x-5 margin-y-5">
+    <mat-card>
+      <button mat-flat-button>
+        <div class="flex align-center">
+          <span class="margin-right-5">Add Bracket</span>
+          <mat-icon>add_circle</mat-icon>
+        </div>
+      </button>
+    </mat-card>
+  </div>
+  <div class="scroll">
+    @for (b of brackets; track b) {
+    <mat-card class="margin-x-5 margin-y-5">
+      <mat-card-content>
+        <div class="flex flex-row">
+          <div class="flex align-center">
+            <span class="italic">{{ dateString(b.date) }}</span>
+          </div>
+          <div class="margin-left-10 flex align-center justify-spread w-full">
+            <div>
+              <button mat-button (click)="selectBracket(b.id)">
+                {{ b.name }}
+              </button>
+            </div>
+            <div>
+              <button mat-icon-button (click)="deleteBracket(b.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+</div>
