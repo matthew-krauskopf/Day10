@@ -8,7 +8,7 @@ import { ResultDetailsComponent } from './components/result-details/result-detai
 import { HomePageComponent } from './components/home-page/home-page.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'players', component: PlayersPageComponent },
