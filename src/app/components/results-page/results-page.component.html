@@ -1,4 +1,5 @@
 <div class="h-full bg flex flex-col">
+  @if (!selectedBracket) {
   <div class="margin-x-5 margin-y-5">
     <mat-card>
       <button mat-flat-button>
@@ -19,7 +20,7 @@
           </div>
           <div class="margin-left-10 flex align-center justify-spread w-full">
             <div>
-              <button mat-button (click)="selectBracket(b.id)">
+              <button mat-button (click)="selectBracket(b)">
                 {{ b.name }}
               </button>
             </div>
@@ -34,4 +35,10 @@
     </mat-card>
     }
   </div>
+  } @else {
+  <app-result-details
+    [bracket]="selectedBracket"
+    class="scroll-x"
+  ></app-result-details>
+  }
 </div>

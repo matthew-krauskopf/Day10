@@ -12,6 +12,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     justify-content: space-between;
 }
 
+.justify-around {
+    justify-content: space-around;
+}
+
 .flex {
     display: flex;
 }
@@ -56,6 +60,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: white;
 }
 
+.font-gray {
+    color: gray;
+}   
+
 .bold {
     font-weight: bold;
 }
@@ -70,6 +78,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .scroll {
     overflow-y: auto;
+}
+
+.scroll-x {
+    overflow-x: auto;
 }
 
 @mixin generate-spacing ($upper-limit) {
