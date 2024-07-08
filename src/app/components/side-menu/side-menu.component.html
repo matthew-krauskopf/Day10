@@ -1,5 +1,6 @@
 <div class="bg h-full flex justify-spread flex-col">
   <div class="button-div">
+    @if (authService.userIsLoggedIn()) {
     <button class="menu-button" mat-flat-button [routerLink]="'/home'">
       <mat-icon>home</mat-icon>
       <span class="font-l">Home</span>
@@ -18,6 +19,7 @@
       <span></span>
     </button>
     <mat-divider></mat-divider>
+    }
   </div>
   <div>
     <img class="img-size" src="{{ icon }}" />

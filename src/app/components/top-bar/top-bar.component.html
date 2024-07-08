@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span class="font-white font-xl">{{ title }}</span>
-  <button mat-mini-fab [routerLink]="'/login'">
+  <button mat-mini-fab (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
 </div>
