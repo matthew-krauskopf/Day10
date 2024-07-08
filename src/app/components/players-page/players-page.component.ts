@@ -7,12 +7,7 @@ import { PlayerDetailComponent } from '../player-detail/player-detail.component'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { PlayerService } from '../../services/player.service';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Match } from '../../model/match';
 import { DbService } from '../../services/db.service';
 
@@ -38,7 +33,7 @@ export class PlayersPageComponent implements AfterViewChecked {
   playersPage: Player[] = [];
   players: Player[] = [];
   matches: Match[] = [];
-  detailForm?: FormGroup;
+  selectedPlayer?: Player;
 
   ngAfterViewChecked(): void {
     this.playerService.calcScores(this.players, this.matches);
@@ -59,26 +54,23 @@ export class PlayersPageComponent implements AfterViewChecked {
   }
 
   selectPlayer(player: Player) {
-    this.detailForm = this.createForm(player);
+    this.selectedPlayer = player;
   }
 
   cancelSelection() {
-    this.detailForm = undefined;
+    this.selectedPlayer = undefined;
   }
 
-  saveChanges() {
-    if (this.playerService.saveChanges(this.players, this.detailForm!) === 1) {
+  saveChanges($event: FormGroup) {
+    if (this.playerService.saveChanges(this.players, $event) === 1) {
       this.pageIndex = Math.ceil(this.players.length / this.pageSize) - 1;
       this.renderSlice();
     }
     this.cancelSelection();
   }
 
-  deletePlayer() {
-    this.players = this.playerService.deletePlayer(
-      this.players,
-      this.detailForm!
-    );
+  deletePlayer($event: Player) {
+    this.players = this.playerService.deletePlayer(this.players, $event);
     if (this.pageSize * this.pageIndex >= this.players.length) {
       this.pageIndex--;
     }
@@ -95,32 +87,5 @@ export class PlayersPageComponent implements AfterViewChecked {
   renderSlice() {
     const start = this.pageIndex * this.pageSize;
     this.playersPage = this.players.slice(start, start + this.pageSize);
-  }
-
-  createForm(player: Player) {
-    return new FormGroup({
-      id: new FormControl(player.id),
-      name: new FormControl(player.name, [
-        Validators.required,
-        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
-      ]),
-      role: new FormControl(player.role, [
-        Validators.required,
-        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
-      ]),
-      city: new FormControl(player.city, [
-        Validators.required,
-        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
-      ]),
-      state: new FormControl(player.state, [
-        Validators.required,
-        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
-      ]),
-      address: new FormControl(player.address, [
-        Validators.required,
-        Validators.pattern('^[0-9]+( [A-Z][a-z]*)+(\\.){0,1}( )*$'),
-      ]),
-      picture: new FormControl(player.picture),
-    });
   }
 }

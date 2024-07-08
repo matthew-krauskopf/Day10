@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DbService } from './db.service';
 import { Player } from '../model/player';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Match } from '../model/match';
 
 @Injectable({
@@ -58,8 +58,8 @@ export class PlayerService {
     players.push(newP);
   }
 
-  deletePlayer(players: Player[], form: FormGroup) {
-    return players.filter((t) => t.id != form.value.id);
+  deletePlayer(players: Player[], player: Player) {
+    return players.filter((t) => t.id != player.id);
   }
 
   calcScores(players: Player[], matches: Match[]) {
@@ -75,6 +75,46 @@ export class PlayerService {
           pm.player2Score > pm.player1Score ? p.wins++ : p.losses++
         );
       }
+    });
+  }
+
+  formatForm(detailForm: FormGroup, player?: Player) {
+    detailForm.reset();
+    if (player) {
+      detailForm.setValue({
+        id: player.id ?? -1,
+        name: player.name ?? '',
+        role: player.role ?? '',
+        city: player.city ?? '',
+        state: player.state ?? '',
+        address: player.address ?? '',
+      });
+    }
+  }
+
+  createForm() {
+    return new FormGroup({
+      id: new FormControl(''),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      role: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      state: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^([A-Z][a-zA-Z]*( ){0,1})+$'),
+      ]),
+      address: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]+( [A-Z][a-z]*)+(\\.){0,1}( )*$'),
+      ]),
     });
   }
 }

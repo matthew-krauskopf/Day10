@@ -1,4 +1,4 @@
-<div *ngIf="detailForm" class="flex justify-center pad-y-5 w-full">
+<div *ngIf="player" class="flex justify-center pad-y-5 w-full">
   <form
     [formGroup]="detailForm"
     class="w-full scroll"
@@ -7,10 +7,8 @@
     <mat-card class="margin-x-5 scroll detail-card">
       <mat-card-header class="margin-bot-8">
         <div class="flex align-center">
-          <img class="pic-size" src="{{ detailForm.value.picture }}" />
-          <span class="font-xxl bold margin-x-15">{{
-            detailForm.value.name
-          }}</span>
+          <img class="pic-size" src="{{ player.picture }}" />
+          <span class="font-xxl bold margin-x-15">{{ player.name }}</span>
         </div>
       </mat-card-header>
       <mat-card-content>
