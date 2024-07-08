@@ -9,21 +9,19 @@ export class AuthService {
   password: string = 'testPass';
   router: Router = inject(Router);
 
-  loggedIn: boolean = false;
-
   checkLogin(username: string, password: string): boolean {
     if (username == this.username && password == this.password) {
-      this.loggedIn = true;
+      localStorage.setItem('logged_in', 'true');
     }
     return this.userIsLoggedIn();
   }
 
   logout() {
-    this.loggedIn = false;
+    localStorage.removeItem('logged_in');
     this.router.navigate(['login']);
   }
 
   userIsLoggedIn(): boolean {
-    return this.loggedIn;
+    return localStorage.getItem('logged_in') == 'true';
   }
 }

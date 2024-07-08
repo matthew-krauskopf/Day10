@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Player } from '../../model/player';
 import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -27,7 +27,7 @@ import { DbService } from '../../services/db.service';
   templateUrl: './players-page.component.html',
   styleUrl: './players-page.component.scss',
 })
-export class PlayersPageComponent implements AfterViewChecked {
+export class PlayersPageComponent {
   pageIndex: number = 0;
   pageSize = 5;
   playersPage: Player[] = [];
@@ -35,17 +35,14 @@ export class PlayersPageComponent implements AfterViewChecked {
   matches: Match[] = [];
   selectedPlayer?: Player;
 
-  ngAfterViewChecked(): void {
-    this.playerService.calcScores(this.players, this.matches);
-  }
-
   constructor(db: DbService, private playerService: PlayerService) {
     playerService.getPlayers().subscribe((response) => {
       this.players = response;
       this.playersPage = this.players.slice(0, this.pageSize);
-    });
-    db.fetchAllMatches().subscribe((m) => {
-      this.matches = m;
+      db.fetchAllMatches().subscribe((m) => {
+        this.matches = m;
+        this.playerService.calcScores(this.players, this.matches);
+      });
     });
   }
 
