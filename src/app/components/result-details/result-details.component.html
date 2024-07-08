@@ -6,9 +6,9 @@
     @for (round of rounds; track round) {
     <div class="round-width pad-left-10 pad-right-10 flex flex-col">
       <div class="margin-y-10">
-        <mat-card>
+        <mat-card class="border">
           <mat-card-content class="flex align-center">
-            <span class="flex align-center justify-center"
+            <span class="bold flex align-center justify-center"
               >Round {{ round[0].round }}</span
             >
           </mat-card-content>
@@ -23,11 +23,11 @@
           <mat-card-content class="flex flex-row">
             <div class="flex justify-spread align-center">
               <div class="flex flex-row">
-                <span class="w-4-chars font-gray margin-right-5">{{
-                  match.player1Id
-                }}</span>
+                <span class="w-4-chars font-gray margin-right-5">
+                  {{ match.player1Id == -1 ? "" : match.player1Id }}
+                </span>
                 <span
-                  [style.font-style]="match.player2Id == -1 ? 'italic' : 'none'"
+                  [style.font-style]="match.player1Id == -1 ? 'italic' : 'none'"
                   >{{ getPlayerName(match.player1Id) }}</span
                 >
               </div>
@@ -45,9 +45,9 @@
             <mat-divider></mat-divider>
             <div class="flex justify-spread align-center">
               <div class="flex flex-row">
-                <span class="w-4-chars font-gray margin-right-5">{{
-                  match.player2Id
-                }}</span>
+                <span class="w-4-chars font-gray margin-right-5">
+                  {{ match.player2Id == -1 ? "" : match.player2Id }}
+                </span>
                 <span
                   [style.font-style]="match.player2Id == -1 ? 'italic' : 'none'"
                   >{{ getPlayerName(match.player2Id) }}</span
