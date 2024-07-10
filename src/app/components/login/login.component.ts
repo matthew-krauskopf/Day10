@@ -51,7 +51,7 @@ export class LoginComponent {
         this.loginForm.value.password ?? ''
       )
     ) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/dashboard/home']);
     } else {
       this.snackbar.open('Invalid login credentials', 'Close');
     }
